@@ -4,7 +4,7 @@ import React, {
   Component
 } from 'react-native';
 
-import styles from '../styles';
+import styles from './styles';
 
 class PoisonBar extends Component {
   render() {
@@ -13,8 +13,8 @@ class PoisonBar extends Component {
         <Text style={styles.poisonTitle}>
           {this.props.poisonTitle}
         </Text>
-        <Text style={styles.poisonText}>
-          {this.props.poisonText}
+        <Text style={styles.poisonDescription}>
+          {this.props.poisonDescription}
         </Text>
       </View>
     );

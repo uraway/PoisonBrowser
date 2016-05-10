@@ -10,16 +10,13 @@ import React, {
   StatusBarIOS
 } from 'react-native';
 const NAVIGATOR_REF = 'navigator';
-import styles from '../styles';
+import styles from './styles';
 
-class ToolBar extends Component {
+export default class ToolBar extends Component {
   constructor(props) {
     super(props);
     this.inputText = '';
     this.state = ToolBar.updateState(this.props);
-    this.state = {
-      showConf: false
-    };
   }
 
   static updateState(props) {
@@ -35,38 +32,24 @@ class ToolBar extends Component {
     this.setState(ToolBar.updateState(nextProps));
   }
 
-  buttonStyle() {
-    return [styles.toolBarIcons, this.props.foregroundColor && {tintColor:this.props.foregroundColor}];
-  }
-
   render() {
     return (
       <View style={styles.toolBar}>
         <TouchableOpacity
           onPress={this.state.onBack}>
-            <Text
-              style={this.buttonStyle()}>
-              {'<'}
-            </Text>
+          <Text
+            style={styles.button}>
+            {'<'}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={this.state.onForward}>
           <Text
-            style={this.buttonStyle()}>
+            style={styles.button}>
             {'>'}
           </Text>
         </TouchableOpacity>
-{/*        <TouchableOpacity
-          onPress={this.handlePressConfig.bind(this)}>
-          <Image
-            style={styles.button}
-            source={require('../assets/images/settings-work-tool.png')}
-          />
-        </TouchableOpacity>
-*/}
       </View>
     );
   }
 }
-
-export default ToolBar;

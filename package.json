@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "^0.14.8",
     "react-native": "^0.25.1",
-    "react-native-loading-spinner-overlay": "0.0.8"
+    "react-native-loading-spinner-overlay": "0.0.8",
+    "react-native-scrollable-tab-view": "^0.4.2"
   }
 }

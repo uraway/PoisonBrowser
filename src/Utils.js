@@ -6,5 +6,5 @@ export default class Utils {
       url = 'http://' + url;
     }
     return url.toLowerCase();
-  } 
+  }
 }

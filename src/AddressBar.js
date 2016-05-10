@@ -1,39 +1,52 @@
 'use strict';
-
 import React, {
+  Image,
   TextInput,
   TouchableOpacity,
   Text,
   View,
-  Image,
   Component
 } from 'react-native';
-import Utils from './Utils';
-import styles from '../styles';
+import styles from './styles';
 const TEXT_INPUT_REF = 'urlInput';
 
-class AddressBar extends Component {
+export default class AddressBar extends Component {
   constructor(props) {
     super(props);
     this.inputText = '';
     this.state = {
-      url: this.props.url
+      url: this.props.url,
+      title: this.props.title,
+      backButtonEnabled: this.props.backButtonEnabled,
+      forwardButtonEnabled: this.props.forwardButtonEnabled,
+      onBack: this.props.onBack,
+      onForward: this.props.onForward,
+      editing: false,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      url: nextProps.url
+      url: nextProps.url,
+      title: nextProps.title,
+      backButtonEnabled: nextProps.backButtonEnabled,
+      forwardButtonEnabled: nextProps.forwardButtonEnabled,
+      onBack: nextProps.onBack,
+      onForward: nextProps.onForward
     });
   }
 
   handleTextInputChange(event) {
-    const url = Utils.sanitizeURL(event.nativeEvent.text);
+    let url = event.nativeEvent.text;
+    if (!/^[a-zA-Z-_]+:/.test(url)) {
+      url = 'http://' + url;
+    }
     this.inputText = url;
   }
 
   onSubmitEditing(event) {
     this.load();
+    this.setState({ editing: false });
   }
 
   load() {
@@ -53,7 +66,9 @@ class AddressBar extends Component {
         <TextInput
           ref={TEXT_INPUT_REF}
           autoCapitalize="none"
-          defaultValue={this.state.url}
+          defaultValue={this.state.editing ? this.state.url : this.state.title}
+          onFocus={() => this.setState({ editing: true })}
+          onBlur={() => this.setState({ editing: false })}
           onSubmitEditing={this.onSubmitEditing.bind(this)}
           onChange={this.handleTextInputChange.bind(this)}
           clearButtonMode="while-editing"
@@ -63,5 +78,3 @@ class AddressBar extends Component {
     );
   }
 }
-
-export default AddressBar;
